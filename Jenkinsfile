@@ -17,7 +17,18 @@ pipeline {
       stage('Checkout') {
       steps{
         echo "------------>Checkout<------------"
-        checkout scm
+        checkout([
+            $class: 'GitSCM',
+            branches: [[name: '*/main']],
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [],
+            gitTool: 'Default',
+            submoduleCfg: [],
+            userRemoteConfigs: [[
+            credentialsId: 'GitHub_william.vasquez',
+            url:'https://github.com/zaratustrawilliam/AgendaVeterinariaFronted.git'
+            ]]
+        ])
       }
     }
 
