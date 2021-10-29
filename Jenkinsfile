@@ -19,14 +19,14 @@ pipeline {
         echo "------------>Checkout<------------"
         checkout([
             $class: 'GitSCM',
-            branches: [[name: '*/main']],
+            branches: [[name: '*/master']],
             doGenerateSubmoduleConfigurations: false,
             extensions: [],
             gitTool: 'Default',
             submoduleCfg: [],
             userRemoteConfigs: [[
-            credentialsId: 'GitHub_william.vasquez',
-            url:'https://github.com/zaratustrawilliam/AgendaVeterinariaFronted.git'
+              credentialsId: 'GitHub_william.vasquez',
+              url:'https://github.com/zaratustrawilliam/AgendaVeterinariaFronted.git'
             ]]
         ])
       }
