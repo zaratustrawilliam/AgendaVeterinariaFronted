@@ -1,0 +1,43 @@
+<div class="padre">
+    <div class="container">
+        <div class="centrar">
+            <h1>Mascotas</h1>
+        </div>
+        <ul *ngIf="listaMascotas.length === 0" class="flex-outer">
+            <li >
+                <p>No tiene mascotas registrada, por favor registre sus mascotas para poder agendar citas</p>
+            </li>
+        </ul>
+        <ul *ngIf="listaMascotas.length > 0" class="flex-outer">
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre Mascota</th>
+                    <th>Tipo Mascota</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr *ngFor="let mascota of listaMascotas; let indice=index">
+                    <td>{{indice + 1}}</td>
+                    <td>{{mascota.nombre}}</td>
+                    <td>{{traerNombreTipoMascota(mascota.tipoMascota.id)}}</td>
+                    <td>
+                        <button type="button" (click)="eliminarMascota(indice)">
+                            <span class="icon-eliminar"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" (click)="editarMascota(mascota)">
+                            <span class="icon-editar"></span>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </ul>
+        <ul class="flex-outer">
+            <li>
+                <button type="button" (click)="crearMascota()">Crear Mascota</button>
+            </li>
+        </ul>
+    </div>
+</div>

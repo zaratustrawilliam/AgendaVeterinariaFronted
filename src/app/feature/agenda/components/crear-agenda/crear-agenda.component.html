@@ -1,0 +1,51 @@
+<div class="padre">
+    <div class="container">
+      <div class="centrar">
+          <h1>{{nombreComponente()}}</h1>
+      </div>
+        <form [formGroup]="agendaForm" (ngSubmit)="modoActualizar ? actualizar() : crear() ">
+          <ul class="flex-outer">
+            <li>
+              <label>Direccion Domicilio:</label>
+              <input type="text" id="direccion" name="direccion" placeholder="Direccion Domicilio"
+                    class="form-control" formControlName="direccion">
+            </li>
+            <li>
+              <label>Mascota:</label>
+              <select validate name="mascotas" formControlName="mascotas">
+                <option [value] ="item.id" *ngFor = "let item of listaMascotas">{{item.nombre}}</option>
+              </select>
+            </li>
+            <ul class="flex-inner">
+              <li *ngIf="!modoActualizar">
+                <label>Modo seleccion fecha:</label>
+                <input type="radio" id="opcion1" [(ngModel)] = "tipoSeleccion" [ngModelOptions]="{standalone: true}"
+                name="tipoSeleccion" value="1">
+                <label for="opcion1">Ingresar opcion</label>
+  
+                <input type="radio" id="opcion2" [(ngModel)] = "tipoSeleccion" [ngModelOptions]="{standalone: true}"
+                name="tipoSeleccion" value="2" (change)="handleChange()">
+                <label for="opcion2">AutoCalcular fecha Mas Proxima</label>
+              </li>
+            </ul>
+            <li *ngIf="tipoSeleccion == '1'">
+              <label>Ingresar Fecha:</label>
+              <input validate type="date" id = "fecha" name="fecha" placeholder  formControlName="fecha" 
+              required class="form-control">
+            </li>
+            <li *ngIf="tipoSeleccion == '1'">
+              <label>Ingresar Hora:</label>
+              <select validate name="horas" formControlName="horas">
+                <option [value] ="item.id" *ngFor = "let item of listaHoras">{{item.nombre}}</option>
+              </select>
+            </li>
+            <li *ngIf="tipoSeleccion == '2'">
+              <label>Fecha y Hora:{{fechaHoraCalculada}}</label>
+            </li>
+            <li>
+              <button type="submit">{{nombreComponente()}}</button>
+            </li>
+          </ul>
+        </form>
+    </div>
+  </div>

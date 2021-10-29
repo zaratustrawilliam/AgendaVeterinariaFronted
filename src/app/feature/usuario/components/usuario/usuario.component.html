@@ -1,0 +1,32 @@
+<div class="padre">
+    <div class="container">
+        <div class="centrar">
+            <h1>Usuario</h1>
+        </div>
+        <ul class="flex-outer">
+            <li>
+                <label>Nombre Usuario:{{usuario.nombre}}</label>
+            </li>
+            <li>
+                <label>UUID:{{usuario.id}}</label>
+            </li>
+            <li>
+                <label>Fecha Creacion:{{usuario.fechaCreacion}}</label>
+            </li>
+            <br>
+            <br>
+            <li>
+                <button type="button" (click)="cerrarCesion()">Cerrar Cesión</button>
+            </li>
+            <br>
+            <li>
+                <button type="button" (click)="eliminarUsuario()">Eliminar Usuario</button>
+            </li>
+            <br>
+            <li>
+                <button type="button" (click)="actualizarUsuario()">Actualizar Usuario</button>
+            </li>
+        </ul>
+    </div>
+</div>
+

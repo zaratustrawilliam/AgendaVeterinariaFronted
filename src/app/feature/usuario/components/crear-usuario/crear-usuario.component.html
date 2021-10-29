@@ -1,0 +1,28 @@
+<div class="padre">
+  <div class="container">
+    <div class="centrar">
+        <h1>{{nombreComponente()}}</h1>
+    </div>
+      <form [formGroup]="usuarioForm" (ngSubmit)="actualizarUsuario ? actualizar() : crear() ">
+        <ul class="flex-outer">
+          <li>
+            <label>Nombre:</label>
+            <input validar type="text" id="nombreUsuario" name="nombre" placeholder="Nombre Usuario"
+                  class="form-control" formControlName="nombre">
+          </li>
+          <li>
+            <label>Clave Usuario:</label>
+            <input validar type="text" id="claveUsuario" name="clave" placeholder="Clave Usuario"
+                  class="form-control" formControlName="clave">
+          </li>
+          <li>
+            <button type="submit">{{nombreComponente()}}</button>
+          </li>
+        </ul>
+      </form>
+  </div>
+</div>
+
+
+
+

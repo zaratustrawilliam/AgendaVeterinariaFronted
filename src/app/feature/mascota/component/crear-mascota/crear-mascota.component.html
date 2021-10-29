@@ -1,0 +1,30 @@
+<div class="padre">
+    <div class="container">
+      <div class="centrar">
+          <h1>{{nombreComponente()}}</h1>
+      </div>
+        <form [formGroup]="mascotaForm" (ngSubmit)="modoActualizar ? actualizar() : crear() ">
+          <ul class="flex-outer">
+            <li>
+              <label>Nombre:</label>
+              <input validar type="text" id="nombreMascota" name="nombre" placeholder="Nombre Mascota"
+                    class="form-control" formControlName="nombre">
+            </li>
+            <li>
+              <label>Tipo Mascota:</label>
+              <select name="tipoMascota" formControlName="tipoMascota">
+                <option [value] ="item.id" *ngFor = "let item of listaTipoMascotas">{{item.nombre}}</option>
+              </select>
+            </li>
+            <li>
+              <button type="submit">{{nombreComponente()}}</button>
+            </li>
+          </ul>
+        </form>
+    </div>
+  </div>
+  
+  
+  
+  
+  

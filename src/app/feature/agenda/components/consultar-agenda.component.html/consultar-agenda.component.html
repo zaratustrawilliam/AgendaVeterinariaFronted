@@ -1,0 +1,47 @@
+<div class="padre">
+    <div class="container">
+        <div class="centrar">
+            <h1>Agendas</h1>
+        </div>
+        <ul *ngIf="listaAgendas.length === 0" class="flex-outer">
+            <li >
+                <p>No tiene agendas registradas!</p>
+            </li>
+        </ul>
+        <ul *ngIf="listaAgendas.length > 0" class="flex-outer">
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre Mascota</th>
+                    <th>Fecha agendada</th>
+                    <th>Precio Base</th>
+                    <th>Direccion</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr *ngFor="let agenda of listaAgendas; let indice=index">
+                    <td>{{indice + 1}}</td>
+                    <td>{{traerNombreMascota(agenda.idMascota)}}</td>
+                    <td>{{agenda.fechaAgenda}}</td>
+                    <td>{{agenda.precio}}</td>
+                    <td>{{agenda.direccionMascota}}</td>
+                    <td>
+                        <button type="button" (click)="eliminarAgenda(indice)">
+                            <span class="icon-eliminar"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" (click)="editarAgenda(agenda.id)">
+                            <span class="icon-editar"></span>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </ul>
+        <ul class="flex-outer">
+            <li>
+                <button type="button" (click)="crearAgenda()">Crear Agenda</button>
+            </li>
+        </ul>
+    </div>
+</div>
