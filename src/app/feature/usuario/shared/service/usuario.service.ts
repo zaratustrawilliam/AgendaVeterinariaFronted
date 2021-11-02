@@ -13,11 +13,11 @@ export class UsuarioService {
         usuario);
     }
 
-    consultarUsuarioPorId(idUsuario: Number){
+    consultarUsuarioPorId(idUsuario: number){
         return this.http.doGet<Usuario>(`${environment.endpoint}/usuarios/${idUsuario}`);
     }
 
-    eliminarUsuario(idUsuario : Number){
+    eliminarUsuario(idUsuario : number){
         return this.http.doDelete<VoidFunction>(`${environment.endpoint}/usuarios/${idUsuario}`);
     }
 

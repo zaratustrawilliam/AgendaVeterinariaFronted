@@ -3,4 +3,4 @@ export class DtoValor{
     constructor(valor:number){
         this.valor=valor;
     }
-};
+}

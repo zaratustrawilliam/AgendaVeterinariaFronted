@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 
-const BIENVENIDA_USUARIO = "!Bienvenido x a la veterinaria los GALGOS, Agende su cita pro favor!";
+const BIENVENIDA_USUARIO = '!Bienvenido x a la veterinaria los GALGOS, Agende su cita pro favor!';
 
 @Component({
   selector: 'app-home',
@@ -15,12 +15,13 @@ export class HomeComponent implements OnInit {
   constructor(private authservice : AuthService) { }
 
   ngOnInit() {
-    this.nombreUsuario = this.authservice._getUserName() 
+    this.nombreUsuario = this.authservice._getUserName();
     this.formarBienvenidaUsuario();
   }
 
   private formarBienvenidaUsuario(){
-    this.nombreUsuario = BIENVENIDA_USUARIO.replace("x",this.nombreUsuario);
+    this.nombreUsuario = BIENVENIDA_USUARIO.replace('x',this.nombreUsuario);
   }
 
 }
+

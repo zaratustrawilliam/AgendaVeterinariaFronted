@@ -1,12 +1,12 @@
 export class DtoAgenda{
-    id:Number;
-    idMascota:Number;
+    id:number;
+    idMascota:number;
     fechaAgenda:string;
-    precio:Number;
+    precio:number;
     direccionMascota:string;
 
-    constructor(id:Number,idMascota:Number,fechaAgenda:string,
-        precio:Number,direccionMascota:string){
+    constructor(id:number,idMascota:number,fechaAgenda:string,
+        precio:number,direccionMascota:string){
         this.id =id;
         this.idMascota=idMascota;
         this.fechaAgenda=fechaAgenda;

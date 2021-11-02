@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { UsuarioService } from "../../shared/service/usuario.service";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { AuthService } from "@core/services/auth.service";
-import { Router } from "@angular/router";
-import { Usuario } from "../../shared/model/usuario";
+import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from '../../shared/service/usuario.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '@core/services/auth.service';
+import { Router } from '@angular/router';
+import { Usuario } from '../../shared/model/usuario';
 
 const LONGITUD_MINIMA_CONTRASENIA = 4;
 
@@ -42,9 +42,8 @@ export class CrearUsuarioComponent implements OnInit{
                 this.authService.registrarUsuario(this.usuarioForm.value.nombre,
                     res.valor);
                     this.router.navigate(['home']);
-            },error=>{
-                console.log(error);
-                alert(error);
+            },()=>{
+                alert('No se puede crear al empleado');
             }
         );
     }
@@ -58,9 +57,6 @@ export class CrearUsuarioComponent implements OnInit{
                 this.authService.registrarUsuario(this.usuarioActaulizar.nombre,
                     this.usuarioActaulizar.id);
                     this.router.navigate(['usuario','perfil']);
-            },error=>{
-                console.log(error);
-                alert(error);
             }
         )
     }
@@ -79,7 +75,7 @@ export class CrearUsuarioComponent implements OnInit{
     }
 
     nombreComponente():string{ 
-        return  (!this.actualizarUsuario ? "Crear usuario" : "Actualizar Usuario");
+        return  (!this.actualizarUsuario ? 'Crear usuario' : 'Actualizar Usuario');
     }
     
 }

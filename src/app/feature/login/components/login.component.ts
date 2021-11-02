@@ -15,18 +15,12 @@ export class LoginComponent implements OnInit{
     constructor(public router :Router,private authService:AuthService){}
 
     ngOnInit(): void {
-        if(this.authService.statusLogged){
-            this.router.navigate(['home']); 
-        }
     }
 
     logIn(){
-        this.authService.login(this.nombre,this.clave).then(logIn =>{
-            if(logIn){
-                this.router.navigate(['home']);
-            }
-        },error=>{
-            console.log(error);
+        this.authService.login(this.nombre,this.clave).then(() =>{
+            this.router.navigate(['home']);
+        },()=>{
             alert('Usuario no existe o clave incorrecta');
         });
     }

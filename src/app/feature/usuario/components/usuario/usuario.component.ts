@@ -1,8 +1,8 @@
-import { Component,OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { AuthService } from "@core/services/auth.service";
-import { Usuario } from "../../shared/model/usuario";
-import { UsuarioService } from "../../shared/service/usuario.service";
+import { Component,OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '@core/services/auth.service';
+import { Usuario } from '../../shared/model/usuario';
+import { UsuarioService } from '../../shared/service/usuario.service';
 
 @Component(
     {
@@ -25,12 +25,9 @@ export class UsuarioComponent implements OnInit{
         this.usuario = new Usuario(-1,'','',null);
 
         this.mostrarOpciones = this.authUser.statusLogged();
-        console.log(this.authUser.statusLogged(),this.authUser._getUUIDUsuario())
         this.usuarioServicio.consultarUsuarioPorId(this.authUser._getUUIDUsuario())
         .subscribe( usuario => {
             this.usuario = usuario;
-        }, error=>{
-            console.log(error);
         });
     }
 
@@ -44,9 +41,7 @@ export class UsuarioComponent implements OnInit{
         .subscribe(() => {
             this.authUser.logoutUser();
             this.router.navigate(['login']);
-        },error =>{
-            alert(error);
-        })
+        });
     }
 
     actualizarUsuario(){

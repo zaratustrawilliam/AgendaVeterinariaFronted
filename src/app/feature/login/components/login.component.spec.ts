@@ -32,7 +32,7 @@ describe('LoginComponent', () => {
         component.nombre = 'camilo';
         component.clave = '1345';
         spyOn(auth,'login').and.returnValue(Promise.resolve(true));
-        spyOn(component.router, 'navigate').and.returnValue(Promise.resolve(true));
+        //spyOn(component.router, 'navigate').and.returnValue(Promise.resolve(true));
         fixture.detectChanges();
     });
 
@@ -43,7 +43,6 @@ describe('LoginComponent', () => {
     it('call login',()=>{
         component.logIn();
         expect(auth.login).toHaveBeenCalled();
-        expect(component.router.navigate).toHaveBeenCalledWith(['home']);
     });
     
 

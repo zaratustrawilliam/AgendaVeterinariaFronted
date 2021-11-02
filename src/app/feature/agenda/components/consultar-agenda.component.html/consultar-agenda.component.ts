@@ -67,4 +67,4 @@ export class ConsultarAgendaComponent implements OnInit{
         return salida;
     }
 
-};
+}

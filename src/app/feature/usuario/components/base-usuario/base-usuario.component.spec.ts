@@ -4,6 +4,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BaseUsuarioComponent } from './base-usuario.component';
 
+
+
+
 describe('BaseUsuarioComponent', () => {
   let component: BaseUsuarioComponent;
   let fixture: ComponentFixture<BaseUsuarioComponent>;
@@ -23,10 +26,16 @@ describe('BaseUsuarioComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BaseUsuarioComponent);
     component = fixture.componentInstance;
+    spyOn(component.router, 'navigate').and.returnValue(Promise.resolve(true));
     fixture.detectChanges();
   });
 
   it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('activo oninit',()=>{
+    component.ngOnInit();
     expect(component).toBeTruthy();
   });
 

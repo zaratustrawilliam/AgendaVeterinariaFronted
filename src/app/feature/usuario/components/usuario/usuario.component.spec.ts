@@ -38,6 +38,7 @@ describe('UsuarioComponent', () => {
     spyOn(auth,'_getUUIDUsuario').and.returnValue(1);
     const dummyUsuario= new Usuario(1,'Juan','12345',new Date());
     spyOn(userService,'consultarUsuarioPorId').and.returnValue(of(dummyUsuario));
+    //spyOn(component['router'],'navigate').and.returnValue(Promise.resolve(true));
     fixture.detectChanges();
   });
 
@@ -48,16 +49,15 @@ describe('UsuarioComponent', () => {
   it('eliminar',()=>{
       const espiarLlamado = spyOn(userService,'eliminarUsuario').and.callThrough();
       fixture.detectChanges();
-      userService.eliminarUsuario(auth._getUUIDUsuario());
+      component.eliminarUsuario();
       expect(espiarLlamado).toHaveBeenCalled();
   });
 
   it('cerrar cesion',()=>{
-      spyOn(component,'cerrarCesion');
+      //spyOn(component,'cerrarCesion');
       spyOn(auth,'logoutUser');
-
       component.cerrarCesion();
-      expect(component.cerrarCesion).toHaveBeenCalled();
+      expect(auth.logoutUser).toHaveBeenCalled();
   })
 
 });

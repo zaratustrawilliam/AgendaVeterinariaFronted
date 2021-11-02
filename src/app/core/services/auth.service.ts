@@ -71,4 +71,4 @@ export class AuthService{
     _getUUIDUsuario():number{
         return this.idUsuario;
     }
-};
+}
