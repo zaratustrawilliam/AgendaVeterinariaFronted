@@ -12,7 +12,7 @@
             </li>
             <li>
               <label>Mascota:</label>
-              <select validate name="mascotas" formControlName="mascotas">
+              <select validate name="mascotas" formControlName="mascotas" id="mascota">
                 <option [value] ="item.id" *ngFor = "let item of listaMascotas">{{item.nombre}}</option>
               </select>
             </li>

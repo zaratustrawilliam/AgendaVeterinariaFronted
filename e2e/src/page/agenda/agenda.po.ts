@@ -10,6 +10,10 @@ export class AgendaPage{
      btnCrearAgenda = element(by.id('crearAgenda'));
      btnCrearActualizarAgenda = element(by.css('.padre button'));
 
+     inputNombreMascota = element(by.id('direccion'));
+     selectMascota = element(by.id('mascota'));
+     seleccionamosRadioBt2 = element(by.id('opcion2'));
+
     getTitleSubPantallaText(){
         return element(by.css('app-root .padre h1')).getText() as Promise<string>;
     }
@@ -28,5 +32,18 @@ export class AgendaPage{
 
     async crearActualizarAgenda(){
         await this.btnCrearActualizarAgenda.click();
+    }
+
+    async insertarDireccion(direccion){
+        await this.inputNombreMascota.sendKeys(direccion);
+    }
+
+    async seleccionarMascota(){
+        let opcion = this.selectMascota.$('option');
+        await  opcion.click();
+    }
+
+    async seleccionarFechaAutomatica(){
+        await this.seleccionamosRadioBt2.click();
     }
 }
