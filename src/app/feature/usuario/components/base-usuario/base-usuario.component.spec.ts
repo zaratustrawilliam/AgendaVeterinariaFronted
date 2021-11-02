@@ -1,8 +1,8 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BaseUsuarioComponent } from './base-usuario.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 
 
@@ -16,7 +16,7 @@ describe('BaseUsuarioComponent', () => {
       declarations: [ BaseUsuarioComponent ],
       imports: [
         CommonModule,
-        HttpClientModule,
+        HttpClientTestingModule ,
         RouterTestingModule
       ]
     })

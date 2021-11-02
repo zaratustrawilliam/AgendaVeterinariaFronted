@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { FormsModule } from "@angular/forms";
 import { RouterTestingModule } from "@angular/router/testing";
@@ -17,7 +17,7 @@ describe('LoginComponent', () => {
         TestBed.configureTestingModule({
             declarations: [LoginComponent],
             imports: [CommonModule,
-                HttpClientModule,
+                HttpClientTestingModule ,
                 RouterTestingModule.withRoutes([{path: 'home',component:HomeComponent}]),
                 FormsModule
             ],

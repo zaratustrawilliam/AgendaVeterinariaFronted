@@ -1,7 +1,6 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UsuarioComponent } from './usuario.component';
 import { AuthService } from '@core/services/auth.service';
@@ -10,6 +9,7 @@ import { UsuarioService } from '../../shared/service/usuario.service';
 import { Usuario } from '../../shared/model/usuario';
 import { of } from 'rxjs';
 import { LoginComponent } from 'src/app/feature/login/components/login.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('UsuarioComponent', () => {
   let component: UsuarioComponent;
@@ -23,7 +23,7 @@ describe('UsuarioComponent', () => {
       declarations: [ UsuarioComponent ],
       imports: [
         CommonModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         RouterTestingModule.withRoutes([{path:'login',component:LoginComponent}])
       ],
       providers:[AuthService,UsuarioService,HttpService]

@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, waitForAsync, TestBed } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { MascotasComponent } from "./mascota.component";
@@ -13,7 +13,7 @@ describe('MascotaComponent', () => {
         declarations: [ MascotasComponent ],
         imports: [
           CommonModule,
-          HttpClientModule,
+          HttpClientTestingModule ,
           RouterTestingModule
         ]
       })

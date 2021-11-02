@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, waitForAsync, TestBed } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { AuthService } from "@core/services/auth.service";
@@ -26,7 +26,7 @@ describe('ConsultarAgendaComponent', () => {
             declarations: [ConsultarAgendaComponent],
             imports: [
                 CommonModule,
-                HttpClientModule,
+                HttpClientTestingModule ,
                 RouterTestingModule
             ],
             providers: [AuthService, AgendaService,MascotasService, HttpService]

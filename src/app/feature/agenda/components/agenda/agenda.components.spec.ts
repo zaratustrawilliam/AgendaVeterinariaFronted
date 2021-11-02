@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { AgendaComponent } from "./agenda.component";
@@ -13,7 +13,7 @@ describe('AgendaComponent', () => {
         declarations: [ AgendaComponent ],
         imports: [
           CommonModule,
-          HttpClientModule,
+          HttpClientTestingModule ,
           RouterTestingModule
         ]
       })

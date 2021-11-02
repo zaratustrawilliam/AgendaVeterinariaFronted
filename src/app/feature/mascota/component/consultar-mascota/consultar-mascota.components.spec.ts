@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, waitForAsync, TestBed } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { AuthService } from "@core/services/auth.service";
@@ -23,7 +23,7 @@ describe('ConsultarMascotaComponent', () => {
             declarations: [ConsultarMascotaComponent],
             imports: [
                 CommonModule,
-                HttpClientModule,
+                HttpClientTestingModule ,
                 RouterTestingModule
             ],
             providers: [AuthService, MascotasService, HttpService]
