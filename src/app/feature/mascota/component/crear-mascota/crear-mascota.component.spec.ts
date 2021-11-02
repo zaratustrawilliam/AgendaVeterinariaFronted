@@ -16,7 +16,7 @@ describe('CrearMascotaComponent', () => {
     let fixture: ComponentFixture<CrearMascotaComponent>;
 
     let mascotaService: MascotasService;
-    let auth; AuthService;
+    let auth: AuthService;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

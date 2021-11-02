@@ -7,16 +7,16 @@
       <ul class="flex-outer">
         <li>
           <label>Nombre:</label>
-          <input validar type="text" id="nombreUsuario" [(ngModel)]="nombre" name="nombre" placeholder="Nombre Usuario"
+          <input validar type="text" id="nombreUsuarioLogin" [(ngModel)]="nombre" name="nombre" placeholder="Nombre Usuario"
                   class="form-control" required>
         </li>
         <li>
           <label>Clave Usuario:</label>
-          <input validar type="password" id="claveUsuario" [(ngModel)]="clave" name="clave" placeholder="Clave Usuario"
+          <input validar type="password" id="claveUsuarioLogin" [(ngModel)]="clave" name="clave" placeholder="Clave Usuario"
                   class="form-control" required>
         </li>
         <li>
-          <button type="submit">Log In</button>
+          <button type="submit" id="btnLogin">Log In</button>
         </li>
         <li>
           <a href="/usuario/crear" id="linkCrearUsuario" routerLink="./usuario/crear">Si no tiene usuario, por favor creelo acá</a>

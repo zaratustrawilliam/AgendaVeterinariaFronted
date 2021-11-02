@@ -12,7 +12,7 @@
             </li>
             <li>
               <label>Tipo Mascota:</label>
-              <select name="tipoMascota" formControlName="tipoMascota">
+              <select name="tipoMascota" formControlName="tipoMascota" id="tipoMascota">
                 <option [value] ="item.id" *ngFor = "let item of listaTipoMascotas">{{item.nombre}}</option>
               </select>
             </li>

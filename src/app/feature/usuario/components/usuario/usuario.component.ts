@@ -25,6 +25,7 @@ export class UsuarioComponent implements OnInit{
         this.usuario = new Usuario(-1,'','',null);
 
         this.mostrarOpciones = this.authUser.statusLogged();
+        console.log(this.authUser.statusLogged(),this.authUser._getUUIDUsuario())
         this.usuarioServicio.consultarUsuarioPorId(this.authUser._getUUIDUsuario())
         .subscribe( usuario => {
             this.usuario = usuario;

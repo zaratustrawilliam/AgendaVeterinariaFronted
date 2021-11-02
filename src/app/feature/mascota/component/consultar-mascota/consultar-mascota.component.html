@@ -9,7 +9,7 @@
             </li>
         </ul>
         <ul *ngIf="listaMascotas.length > 0" class="flex-outer">
-            <table>
+            <table id="tablaResultados">
                 <tr>
                     <th>#</th>
                     <th>Nombre Mascota</th>
@@ -22,12 +22,12 @@
                     <td>{{mascota.nombre}}</td>
                     <td>{{traerNombreTipoMascota(mascota.tipoMascota.id)}}</td>
                     <td>
-                        <button type="button" (click)="eliminarMascota(indice)">
+                        <button type="button" (click)="eliminarMascota(indice)" id="eliminarMascota">
                             <span class="icon-eliminar"></span>
                         </button>
                     </td>
                     <td>
-                        <button type="button" (click)="editarMascota(mascota)">
+                        <button type="button" (click)="editarMascota(mascota)" id="editarMascota">
                             <span class="icon-editar"></span>
                         </button>
                     </td>
@@ -36,7 +36,7 @@
         </ul>
         <ul class="flex-outer">
             <li>
-                <button type="button" (click)="crearMascota()">Crear Mascota</button>
+                <button type="button" (click)="crearMascota()" id="crearMascota">Crear Mascota</button>
             </li>
         </ul>
     </div>

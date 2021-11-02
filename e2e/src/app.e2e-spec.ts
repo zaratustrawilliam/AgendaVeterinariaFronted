@@ -8,9 +8,14 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display app principal', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Angular Seed');
+    //validamos el mensaje del app toolbar
+    expect(page.getTitleText()).toEqual('Veterinaria Los Galgos');
+  });
+
+  it('validamos que nos muestre la pantalla de login',()=>{
+    expect(page.getTitleSubPantallaText()).toEqual('Log-In');
   });
 
   afterEach(async () => {

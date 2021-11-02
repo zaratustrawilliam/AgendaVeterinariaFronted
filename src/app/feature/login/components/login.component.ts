@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit{
     nombre:string;
     clave:string;
 
-    constructor(private router :Router,private authService:AuthService){}
+    constructor(public router :Router,private authService:AuthService){}
 
     ngOnInit(): void {
         if(this.authService.statusLogged){

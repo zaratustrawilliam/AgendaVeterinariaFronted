@@ -8,4 +8,8 @@ export class AppPage {
   getTitleText() {
     return element(by.css('app-root h1')).getText() as Promise<string>;
   }
+
+  getTitleSubPantallaText(){
+    return element(by.css('app-root .padre h1')).getText() as Promise<string>;
+  }
 }

@@ -1,30 +1,30 @@
-<div class="padre">
+<div class="padre" id="usuariocomponent">
     <div class="container">
         <div class="centrar">
             <h1>Usuario</h1>
         </div>
         <ul class="flex-outer">
             <li>
-                <label>Nombre Usuario:{{usuario.nombre}}</label>
+                <label id = "nombreUsuarioDisplay">Nombre Usuario:{{usuario.nombre}}</label>
             </li>
             <li>
-                <label>UUID:{{usuario.id}}</label>
+                <label id = "idUsuarioDisplay">UUID:{{usuario.id}}</label>
             </li>
             <li>
-                <label>Fecha Creacion:{{usuario.fechaCreacion}}</label>
-            </li>
-            <br>
-            <br>
-            <li>
-                <button type="button" (click)="cerrarCesion()">Cerrar Cesión</button>
+                <label id = "fechaCreacionDisplay">Fecha Creacion:{{usuario.fechaCreacion}}</label>
             </li>
             <br>
+            <br>
             <li>
-                <button type="button" (click)="eliminarUsuario()">Eliminar Usuario</button>
+                <button type="button" (click)="cerrarCesion()" id="btnCerrarCesion">Cerrar Cesión</button>
             </li>
             <br>
             <li>
-                <button type="button" (click)="actualizarUsuario()">Actualizar Usuario</button>
+                <button type="button" (click)="eliminarUsuario()" id="btnEliminarUsuario">Eliminar Usuario</button>
+            </li>
+            <br>
+            <li>
+                <button type="button" (click)="actualizarUsuario()" id="btnActualizarUsuario">Actualizar Usuario</button>
             </li>
         </ul>
     </div>

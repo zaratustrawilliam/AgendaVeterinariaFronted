@@ -40,7 +40,7 @@ export class CrearUsuarioComponent implements OnInit{
         this.usuarioServicio.crear(this.usuarioForm.value).subscribe(
             res=>{
                 this.authService.registrarUsuario(this.usuarioForm.value.nombre,
-                    res);
+                    res.valor);
                     this.router.navigate(['home']);
             },error=>{
                 console.log(error);

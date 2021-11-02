@@ -10,6 +10,7 @@ import { LoginComponent } from "./login.component";
 describe('LoginComponent', () => {
     let component: LoginComponent;
     let fixture: ComponentFixture<LoginComponent>;
+    let auth: AuthService;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -26,19 +27,24 @@ describe('LoginComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(LoginComponent);
         component = fixture.componentInstance;
+        auth = TestBed.inject(AuthService);
+
+        component.nombre = 'camilo';
+        component.clave = '1345';
+        spyOn(auth,'login').and.returnValue(Promise.resolve(true));
+        spyOn(component.router, 'navigate').and.returnValue(Promise.resolve(true));
         fixture.detectChanges();
     });
 
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-
+    
     it('call login',()=>{
-        spyOn(component,'logIn');
-        component.nombre = 'camilo';
-        component.clave = '1345';
         component.logIn();
-        expect(component.logIn).toHaveBeenCalled();
+        expect(auth.login).toHaveBeenCalled();
+        expect(component.router.navigate).toHaveBeenCalledWith(['home']);
     });
+    
 
 });
