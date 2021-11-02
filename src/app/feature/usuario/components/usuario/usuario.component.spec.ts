@@ -38,7 +38,7 @@ describe('UsuarioComponent', () => {
     auth = TestBed.inject(AuthService);
     spyOn(auth,'_getUUIDUsuario').and.returnValue(1);
     const dummyUsuario= new Usuario(1,'Juan','12345',new Date());
-    spyOn(userService,'consultarUsuarioPorId').and.returnValue(of(dummyUsuario));
+    spyOn(userService,'consultarUsuarioPorId').and.callFake(()=>{return of(dummyUsuario)});
     fixture.detectChanges();
   });
 
@@ -54,7 +54,6 @@ describe('UsuarioComponent', () => {
   });
 
   it('cerrar cesion',()=>{
-      //spyOn(component,'cerrarCesion');
       spyOn(auth,'logoutUser');
       component.cerrarCesion();
       expect(auth.logoutUser).toHaveBeenCalled();
