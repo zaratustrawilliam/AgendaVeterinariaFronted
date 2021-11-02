@@ -39,7 +39,6 @@ describe('UsuarioComponent', () => {
     spyOn(auth,'_getUUIDUsuario').and.returnValue(1);
     const dummyUsuario= new Usuario(1,'Juan','12345',new Date());
     spyOn(userService,'consultarUsuarioPorId').and.returnValue(of(dummyUsuario));
-    //spyOn(component['router'],'navigate').and.returnValue(Promise.resolve(true));
     fixture.detectChanges();
   });
 

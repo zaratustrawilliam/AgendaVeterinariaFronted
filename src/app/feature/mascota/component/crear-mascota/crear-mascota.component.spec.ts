@@ -6,6 +6,7 @@ import { AuthService } from "@core/services/auth.service";
 import { HttpService } from "@core/services/http.service";
 import { of } from "rxjs";
 import { Usuario } from "src/app/feature/usuario/shared/model/usuario";
+import { DtoMascota } from "../../shared/model/DtoMascota";
 import { Mascota } from "../../shared/model/Mascota";
 import { TipoMascota } from "../../shared/model/TipoMascota";
 import { MascotasService } from "../../shared/service/mascotas.service";
@@ -63,9 +64,13 @@ describe('CrearMascotaComponent', () => {
     }));
 
     it('crear mascota', () => {
-        spyOn(component, 'crear');
+        component.mascotaForm.controls['nombre'].setValue('Tobias');
+        component.mascotaForm.controls['tipoMascota'].setValue('1');
+        spyOn(mascotaService, 'crearMascota').and.returnValue(of());
+        spyOn<any>(component,'construirDtoMascota');
         component.crear();
-        expect(component.crear).toHaveBeenCalled();
+        expect(component['construirDtoMascota']).toHaveBeenCalled();
+        expect(mascotaService.crearMascota).toHaveBeenCalled();
     });
 
     it('nombre componente',()=>{
@@ -79,10 +84,17 @@ describe('CrearMascotaComponent', () => {
     });
 
     it('actualizar mascota', () => {
-        fixture.detectChanges();
-        spyOn(component, 'actualizar');
+        component.parametroMascota = 1;
+        component.ngOnInit();
+        spyOn<any>(component,'construirDtoMascota');
+        spyOn(mascotaService, 'actualizarMascota').and.returnValue(of());
+        const dummyMascota = new DtoMascota(null, 'Tobias',1,1);
+        component.mascota = dummyMascota;
+
         component.actualizar();
-        expect(component.actualizar).toHaveBeenCalled();
+
+        expect(component['construirDtoMascota']).toHaveBeenCalled();
+        expect(mascotaService.actualizarMascota).toHaveBeenCalled();
     });
 
     

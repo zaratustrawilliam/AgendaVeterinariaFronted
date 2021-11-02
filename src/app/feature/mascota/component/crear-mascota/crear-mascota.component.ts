@@ -13,11 +13,11 @@ import { MascotasService } from "../../shared/service/mascotas.service";
 })
 export class CrearMascotaComponent implements OnInit{
     
-    private mascota : DtoMascota;
+    mascota : DtoMascota;
     mascotaForm : FormGroup;
     modoActualizar : boolean;
     listaTipoMascotas : Array<TipoMascota>;
-    private parametroMascota : Number;
+    parametroMascota : number;
 
     constructor(protected servicioMascotas : MascotasService,
         protected route :Router,protected userService : AuthService,
@@ -37,9 +37,6 @@ export class CrearMascotaComponent implements OnInit{
                     this.rellenarFormulario();
                     this.modoActualizar = true;
                 }
-            },error=>{
-                this.listaTipoMascotas = [];
-                console.error(error);
             });
 
     }
@@ -62,8 +59,6 @@ export class CrearMascotaComponent implements OnInit{
         .subscribe(idMascota=>{
             console.log('se creo mascota con id',idMascota);
             this.route.navigate(['mascota','listar']);
-        },error=>{
-            console.log(error);
         })
     }
 
@@ -73,8 +68,6 @@ export class CrearMascotaComponent implements OnInit{
         this.servicioMascotas.actualizarMascota(this.mascota)
         .subscribe(()=>{
             this.route.navigate(['mascota','listar']);
-        },error=>{
-            console.log(error);
         });
     }
 
@@ -91,8 +84,6 @@ export class CrearMascotaComponent implements OnInit{
                     this.mascotaForm.get('tipoMascota').setValue(mascota.tipoMascota.id);
                 }
             })
-        }, error =>{
-            console.error(error);
         });
     }
 }

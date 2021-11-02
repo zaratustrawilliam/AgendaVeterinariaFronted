@@ -1,10 +1,10 @@
 export class DtoMascota{
-    id : Number;
+    id : number;
     nombre :string;
-    usuario : Number;
-    tipoMascota : Number;
+    usuario : number;
+    tipoMascota : number;
 
-    constructor(id:Number,nombre : string,usuario:Number,tipoMascota:Number){
+    constructor(id:number,nombre : string,usuario:number,tipoMascota:number){
         this.id=id;
         this.nombre=nombre;
         this.usuario=usuario;

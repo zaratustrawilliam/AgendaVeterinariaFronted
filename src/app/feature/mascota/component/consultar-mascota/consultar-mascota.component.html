@@ -19,7 +19,7 @@
                     <th scope="col"></th>
                 </tr>
                 <tr *ngFor="let mascota of listaMascotas; let indice=index">
-                    <td scope="row">{{indice + 1}}</td>
+                    <td>{{indice + 1}}</td>
                     <td>{{mascota.nombre}}</td>
                     <td>{{traerNombreTipoMascota(mascota.tipoMascota.id)}}</td>
                     <td>

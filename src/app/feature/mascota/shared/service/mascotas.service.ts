@@ -14,16 +14,16 @@ export class MascotasService{
         return this.http.doGet<Array<TipoMascota>>(`${environment.endpoint}/tiposmascotas`);
     }
 
-    public consultarMascotasPorUsuario(idUsuario  :Number){
+    public consultarMascotasPorUsuario(idUsuario  :number){
         return this.http.doGet<Array<Mascota>>(`${environment.endpoint}/mascotas/${idUsuario}`);
     }
 
-    public eliminarMascota(idMascota : Number){
+    public eliminarMascota(idMascota : number){
         return this.http.doDelete<VoidFunction>(`${environment.endpoint}/mascotas/${idMascota}`)
     }
 
     public crearMascota( dtoMascota : DtoMascota){
-        return this.http.doPost<DtoMascota,Number>(`${environment.endpoint}/mascotas`,dtoMascota);
+        return this.http.doPost<DtoMascota,number>(`${environment.endpoint}/mascotas`,dtoMascota);
     }
 
     public actualizarMascota( dtoMascota : DtoMascota){

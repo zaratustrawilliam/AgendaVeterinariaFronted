@@ -55,10 +55,14 @@ describe('ConsultarMascotaComponent', () => {
     });
 
     it('eliminar nascota', () => {
-        const espiarLlamado = spyOn(mascotaService, 'eliminarMascota').and.callThrough();
-        fixture.detectChanges();
-        mascotaService.eliminarMascota(auth._getUUIDUsuario());
-        expect(espiarLlamado).toHaveBeenCalled();
+        const dummyUsuario = new Usuario(1, 'Juan', '12345', new Date());
+        const dymmyTipoMascota = [new TipoMascota(1,'PERRO'),new TipoMascota(2,'GATO'),
+        new TipoMascota(3,'AVE'),new TipoMascota(4,'ROEDOR')];
+        const dummyMascota = [new Mascota(null, 'Tobias', dummyUsuario, dymmyTipoMascota[0])];
+        component.listaMascotas = dummyMascota;
+        spyOn(mascotaService, 'eliminarMascota').and.returnValue(of());
+        component.eliminarMascota(0);
+        expect(mascotaService.eliminarMascota).toHaveBeenCalled();
     });
 
     it('editar mascota', () => {
