@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { AuthService } from "@core/services/auth.service";
-import { Mascota } from "src/app/feature/mascota/shared/model/Mascota";
-import { MascotasService } from "src/app/feature/mascota/shared/service/mascotas.service";
-import { Agenda } from "../../share/model/Agenda";
-import { AgendaService } from "../../share/service/agenda.service";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '@core/services/auth.service';
+import { Mascota } from 'src/app/feature/mascota/shared/model/Mascota';
+import { MascotasService } from 'src/app/feature/mascota/shared/service/mascotas.service';
+import { Agenda } from '../../share/model/Agenda';
+import { AgendaService } from '../../share/service/agenda.service';
 
 @Component({
     selector:'app-consultaragenda',
@@ -36,7 +36,6 @@ export class ConsultarAgendaComponent implements OnInit{
         .subscribe(()=>{
             this.listaAgendas.splice(indice,1);
         },error=>{
-            console.log(error);
             alert(error);
         })
     }
@@ -58,8 +57,8 @@ export class ConsultarAgendaComponent implements OnInit{
         });
     }
 
-    traerNombreMascota(idMascota : Number):string{
-        let salida : string = "";
+    traerNombreMascota(idMascota : number):string{
+        let salida = '';
         this.listaMascotas.forEach(item =>{
             if(item.id === idMascota){
                 salida = item.nombre;
@@ -68,4 +67,4 @@ export class ConsultarAgendaComponent implements OnInit{
         return salida;
     }
 
-}
+};

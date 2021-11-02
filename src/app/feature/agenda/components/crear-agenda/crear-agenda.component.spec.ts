@@ -106,7 +106,7 @@ describe('CrearAgendaComponent', () => {
     it('actualizar agenda', () => {
         component.tipoSeleccion = '1';
         fixture.detectChanges();
-        spyOn(component, 'actualizar');
+        spyOn(component, 'actualizar').and.callThrough;
         component.actualizar();
         expect(component.actualizar).toHaveBeenCalled();
     });

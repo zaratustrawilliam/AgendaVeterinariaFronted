@@ -1,10 +1,10 @@
 export class Usuario{
-    id: Number;
+    id: number;
     nombre : string;
     clave : string;
     fechaCreacion : Date;
 
-    constructor(id:Number,nombre:string,clave:string,fechaCreacion:Date){
+    constructor(id:number,nombre:string,clave:string,fechaCreacion:Date){
         this.id = id;
         this.nombre = nombre;
         this.clave = clave;

@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { AuthService } from "@core/services/auth.service";
-import { Mascota } from "src/app/feature/mascota/shared/model/Mascota";
-import { MascotasService } from "src/app/feature/mascota/shared/service/mascotas.service";
-import { DtoAgenda } from "../../share/model/DtoAgenda";
-import { DtoFechasDisponibles } from "../../share/model/DtoFechasDisponibles";
-import { AgendaService } from "../../share/service/agenda.service";
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AuthService } from '@core/services/auth.service';
+import { Mascota } from 'src/app/feature/mascota/shared/model/Mascota';
+import { MascotasService } from 'src/app/feature/mascota/shared/service/mascotas.service';
+import { DtoAgenda } from '../../share/model/DtoAgenda';
+import { DtoFechasDisponibles } from '../../share/model/DtoFechasDisponibles';
+import { AgendaService } from '../../share/service/agenda.service';
 
 const TIPO_SELECCION_INGRESAR_FECHA = '1';
 const TIPO_SELECCION_AUTOMATICA =  '2';
@@ -23,7 +23,7 @@ export class CrearAgendaComponent implements OnInit{
     modoActualizar : boolean;
     agendaForm : FormGroup;
     listaMascotas : Array<Mascota>;
-    private parametroAgenda : Number;
+    private parametroAgenda : number;
     listaHoras : Array<any>;
     tipoSeleccion : string;
     fechaHoraCalculada : string;
@@ -56,39 +56,41 @@ export class CrearAgendaComponent implements OnInit{
     }
 
     nombreComponente():string{ 
-        return  (!this.modoActualizar ? "Crear Agenda" : "Actualizar Agenda");
+        return  (!this.modoActualizar ? 'Crear Agenda' : 'Actualizar Agenda');
     }
 
     actualizar(){
         let fecha = new Date();
+        const indexObjeto = 2;
         let valoresFecha = this.agendaForm.value.fecha.split('-');
-        fecha.setFullYear(parseInt(valoresFecha[0]),parseInt(valoresFecha[1]),
-        parseInt(valoresFecha[2]));
+        fecha.setFullYear(parseInt(valoresFecha[0],10),parseInt(valoresFecha[1],10),
+        parseInt(valoresFecha[indexObjeto],10));
         fecha.setUTCHours(this.agendaForm.value.horas,0,0,0);
         let agenda = new DtoAgenda(this.parametroAgenda,this.agendaForm.get('mascotas').value,
         this.formatearFechaIso(fecha.toISOString()),null,this.agendaForm.get('direccion').value);
 
         this.servicioAgenda.actualizarAgenda(agenda).subscribe(
             () =>{
-                this.route.navigate(['agenda','listar'])
+                this.route.navigate(['agenda','listar']);
             },error=>{
                 console.log(error);
                 alert(error);            }
         );
-    };
+    }
 
     crear(){
         let fecha = new Date();
-        if(this.tipoSeleccion == TIPO_SELECCION_INGRESAR_FECHA){
+        const indexObjeto = 2;
+        if(this.tipoSeleccion === TIPO_SELECCION_INGRESAR_FECHA){
             let valoresFecha = this.agendaForm.value.fecha.split('-');
-            fecha.setFullYear(parseInt(valoresFecha[0]),parseInt(valoresFecha[1]),
-            parseInt(valoresFecha[2]));
+            fecha.setFullYear(parseInt(valoresFecha[0],10),parseInt(valoresFecha[1],10),
+            parseInt(valoresFecha[indexObjeto],10));
             fecha.setUTCHours(this.agendaForm.value.horas,0,0,0);
-        }else if(this.tipoSeleccion ==TIPO_SELECCION_AUTOMATICA){
-            fecha.setFullYear(parseInt(this.fechaHoraCal.anio),
-            MESES[this.fechaHoraCal.mes.toUpperCase()],parseInt(this.fechaHoraCal.dia));
+        }else if(this.tipoSeleccion ===TIPO_SELECCION_AUTOMATICA){
+            fecha.setFullYear(parseInt(this.fechaHoraCal.anio,10),
+            MESES[this.fechaHoraCal.mes.toUpperCase()],parseInt(this.fechaHoraCal.dia,10));
             let hora = this.fechaHoraCal.hora.split('')[0];
-            fecha.setUTCHours(parseInt(hora));
+            fecha.setUTCHours(parseInt(hora,10));
         }
         
         let agenda = new DtoAgenda(null,this.agendaForm.get('mascotas').value,
@@ -134,7 +136,7 @@ export class CrearAgendaComponent implements OnInit{
             let fechaDisponible = lista[0];
             this.fechaHoraCal = lista[0];
             this.fechaHoraCalculada = this.formatearFecha(fechaDisponible);
-        },error=>{console.log(error)})
+        },error=>{console.log(error);});
     }
 
     private formatearFecha(fechaDisponible :DtoFechasDisponibles) :string{
@@ -156,8 +158,11 @@ export class CrearAgendaComponent implements OnInit{
     }
 
     private convertirFechaPicker(fecha : string):string{
+        const hora = 2;
+        const mes = 1;
+        const dia = 0;
         let fechaPartida = fecha.split('/');
-        return fechaPartida[2]+'-'+fechaPartida[1]+'-'+fechaPartida[0];
+        return `${fechaPartida[hora]}-${fechaPartida[mes]}-${fechaPartida[dia]}`;
     }
 
     private actualizarFormulario(){
@@ -174,7 +179,7 @@ export class CrearAgendaComponent implements OnInit{
             })
         },error=>{
             alert(error);
-            console.log(error);})
+            console.log(error);});
     }
     
 }

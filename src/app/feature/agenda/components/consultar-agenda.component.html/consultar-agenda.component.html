@@ -10,17 +10,18 @@
         </ul>
         <ul *ngIf="listaAgendas.length > 0" class="flex-outer">
             <table>
+                <caption>Lista de agendas realizadas</caption>
                 <tr>
-                    <th>#</th>
-                    <th>Nombre Mascota</th>
-                    <th>Fecha agendada</th>
-                    <th>Precio Base</th>
-                    <th>Direccion</th>
-                    <th></th>
-                    <th></th>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre Mascota</th>
+                    <th scope="col">Fecha agendada</th>
+                    <th scope="col">Precio Base</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 <tr *ngFor="let agenda of listaAgendas; let indice=index">
-                    <td>{{indice + 1}}</td>
+                    <td scope = "row">{{indice + 1}}</td>
                     <td>{{traerNombreMascota(agenda.idMascota)}}</td>
                     <td>{{agenda.fechaAgenda}}</td>
                     <td>{{agenda.precio}}</td>

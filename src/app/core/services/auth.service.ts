@@ -1,21 +1,20 @@
-import { Injectable } from "@angular/core";
-//import { of } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { HttpService } from '@core-service/http.service';
 import { environment } from 'src/environments/environment';
-import { DtoUsuario } from "@core/modelo/Dtousuario";
+import { DtoUsuario } from '@core/modelo/Dtousuario';
 
 @Injectable()
 export class AuthService{
 
     private isLoggedIn: boolean;
     private userName: string;
-    private idUsuario : Number;
+    private idUsuario : number;
 
     constructor(private http: HttpService){
         this.isLoggedIn=false;
     }
 
-    registrarUsuario(usuario:string,idUsuario:Number){
+    registrarUsuario(usuario:string,idUsuario:number){
         this.userName = usuario;
         this.idUsuario = idUsuario;
         this.isLoggedIn = true;       
@@ -69,7 +68,7 @@ export class AuthService{
         return this.userName;
     }
 
-    _getUUIDUsuario():Number{
+    _getUUIDUsuario():number{
         return this.idUsuario;
     }
-}
+};

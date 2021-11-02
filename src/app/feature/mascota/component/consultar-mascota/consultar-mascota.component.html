@@ -10,15 +10,16 @@
         </ul>
         <ul *ngIf="listaMascotas.length > 0" class="flex-outer">
             <table id="tablaResultados">
+                <caption>Mascotas creadas pro el usuario</caption>
                 <tr>
-                    <th>#</th>
-                    <th>Nombre Mascota</th>
-                    <th>Tipo Mascota</th>
-                    <th></th>
-                    <th></th>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre Mascota</th>
+                    <th scope="col">Tipo Mascota</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 <tr *ngFor="let mascota of listaMascotas; let indice=index">
-                    <td>{{indice + 1}}</td>
+                    <td scope="row">{{indice + 1}}</td>
                     <td>{{mascota.nombre}}</td>
                     <td>{{traerNombreTipoMascota(mascota.tipoMascota.id)}}</td>
                     <td>
