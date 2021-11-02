@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { RouterTestingModule } from "@angular/router/testing";
 import { AuthService } from "@core/services/auth.service";
 import { HttpService } from "@core/services/http.service";
+import { HomeComponent } from "@home/home.component";
 import { LoginComponent } from "./login.component";
 
 describe('LoginComponent', () => {
@@ -17,7 +18,7 @@ describe('LoginComponent', () => {
             declarations: [LoginComponent],
             imports: [CommonModule,
                 HttpClientModule,
-                RouterTestingModule,
+                RouterTestingModule.withRoutes([{path: 'home',component:HomeComponent}]),
                 FormsModule
             ],
             providers:[AuthService,HttpService]
@@ -32,7 +33,6 @@ describe('LoginComponent', () => {
         component.nombre = 'camilo';
         component.clave = '1345';
         spyOn(auth,'login').and.returnValue(Promise.resolve(true));
-        //spyOn(component.router, 'navigate').and.returnValue(Promise.resolve(true));
         fixture.detectChanges();
     });
 

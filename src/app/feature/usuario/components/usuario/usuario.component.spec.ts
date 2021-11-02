@@ -9,6 +9,7 @@ import { HttpService } from '@core/services/http.service';
 import { UsuarioService } from '../../shared/service/usuario.service';
 import { Usuario } from '../../shared/model/usuario';
 import { of } from 'rxjs';
+import { LoginComponent } from 'src/app/feature/login/components/login.component';
 
 describe('UsuarioComponent', () => {
   let component: UsuarioComponent;
@@ -23,7 +24,7 @@ describe('UsuarioComponent', () => {
       imports: [
         CommonModule,
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule.withRoutes([{path:'login',component:LoginComponent}])
       ],
       providers:[AuthService,UsuarioService,HttpService]
     })
