@@ -62,10 +62,12 @@ describe('ConsultarAgendaComponent', () => {
     });
 
     it('eliminar agenda', () => {
-        const espiarLlamado = spyOn(agendaService, 'eliminarAgenda').and.callThrough();
-        fixture.detectChanges();
-        agendaService.eliminarAgenda(auth._getUUIDUsuario());
-        expect(espiarLlamado).toHaveBeenCalled();
+        component.listaAgendas = new Array<Agenda>();
+        let dummyagenda = new Agenda(1,1,null,null,null);
+        component.listaAgendas.push(dummyagenda);
+        spyOn(agendaService, 'eliminarAgenda').and.returnValue(of());
+        component.eliminarAgenda(0);
+        expect(agendaService.eliminarAgenda).toHaveBeenCalled();
     });
 
     it('editar agenda', () => {
