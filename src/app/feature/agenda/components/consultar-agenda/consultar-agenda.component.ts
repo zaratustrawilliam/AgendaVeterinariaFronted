@@ -26,8 +26,6 @@ export class ConsultarAgendaComponent implements OnInit{
         .subscribe(lista =>{
             this.listaAgendas = lista;
             this.consultarMaacotas();
-        },error=>{
-            alert(error);
         });
     }
 
@@ -35,12 +33,10 @@ export class ConsultarAgendaComponent implements OnInit{
         this.servicioAgenda.eliminarAgenda(this.listaAgendas[indice].id)
         .subscribe(()=>{
             this.listaAgendas.splice(indice,1);
-        },error=>{
-            alert(error);
-        })
+        });
     }
 
-    editarAgenda(idMascota:Number){
+    editarAgenda(idMascota:number){
         this.router.navigate(['agenda','actualizar',idMascota]);
     }
 
@@ -52,8 +48,6 @@ export class ConsultarAgendaComponent implements OnInit{
         this.servicioMascota.consultarMascotasPorUsuario(this.authServer._getUUIDUsuario())
         .subscribe( lista =>{
             this.listaMascotas = lista;
-        }, error =>{
-            console.error(error);
         });
     }
 

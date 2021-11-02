@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { AuthService } from "@core/services/auth.service";
-import { DtoMascota } from "../../shared/model/DtoMascota";
-import { TipoMascota } from "../../shared/model/TipoMascota";
-import { MascotasService } from "../../shared/service/mascotas.service";
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AuthService } from '@core/services/auth.service';
+import { DtoMascota } from '../../shared/model/DtoMascota';
+import { TipoMascota } from '../../shared/model/TipoMascota';
+import { MascotasService } from '../../shared/service/mascotas.service';
 
 @Component({
     selector:'app-crearmascota',
@@ -59,7 +59,7 @@ export class CrearMascotaComponent implements OnInit{
         .subscribe(idMascota=>{
             console.log('se creo mascota con id',idMascota);
             this.route.navigate(['mascota','listar']);
-        })
+        });
     }
 
     actualizar(){
@@ -72,7 +72,7 @@ export class CrearMascotaComponent implements OnInit{
     }
 
     nombreComponente():string{ 
-        return  (!this.modoActualizar ? "Crear Mascota" : "Actualizar Mascota");
+        return  (!this.modoActualizar ? 'Crear Mascota' : 'Actualizar Mascota');
     }
 
     private rellenarFormulario(){
@@ -83,7 +83,7 @@ export class CrearMascotaComponent implements OnInit{
                     this.mascotaForm.get('nombre').setValue(mascota.nombre);
                     this.mascotaForm.get('tipoMascota').setValue(mascota.tipoMascota.id);
                 }
-            })
+            });
         });
     }
 }

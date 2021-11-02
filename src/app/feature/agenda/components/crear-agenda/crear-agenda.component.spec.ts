@@ -12,6 +12,7 @@ import { Usuario } from "src/app/feature/usuario/shared/model/usuario";
 import { Agenda } from "../../share/model/Agenda";
 import { DtoFechasDisponibles } from "../../share/model/DtoFechasDisponibles";
 import { AgendaService } from "../../share/service/agenda.service";
+import { ConsultarAgendaComponent } from "../consultar-agenda/consultar-agenda.component";
 import { CrearAgendaComponent } from "./crear-agenda.component";
 
 describe('CrearAgendaComponent', () => {
@@ -28,7 +29,9 @@ describe('CrearAgendaComponent', () => {
             imports: [
                 CommonModule,
                 HttpClientTestingModule ,
-                RouterTestingModule
+                RouterTestingModule.withRoutes([{
+                    path:'agenda/listar',component:ConsultarAgendaComponent
+                }])
             ],
             providers: [AuthService, AgendaService,MascotasService, HttpService]
         })
@@ -75,9 +78,14 @@ describe('CrearAgendaComponent', () => {
     }));
 
     it('crear agenda tipo seleccion 1', () => {
-        spyOn(component, 'crear');
+        component.agendaForm.value.fecha = '2020-05-21';
+        component.agendaForm.value.horas = 8;
+        spyOn(agendaService,'crearAgenda').and.returnValue(of(1));
+        spyOn<any>(component,'formatearFechaIso');
+
         component.crear();
-        expect(component.crear).toHaveBeenCalled();
+
+        expect(component['formatearFechaIso']).toHaveBeenCalled();
     });
 
     it('handle change, fecha automatica',()=>{
@@ -88,9 +96,14 @@ describe('CrearAgendaComponent', () => {
 
     it('crear agenda tipo seleccion 2', () => {
         component.tipoSeleccion = '2';
-        spyOn(component, 'crear');
+        let fechaDtoDummy = new DtoFechasDisponibles('15','mayo','2021','9:00');
+        component.fechaHoraCal = fechaDtoDummy;
+        spyOn(agendaService,'crearAgenda').and.returnValue(of(1));
+        spyOn<any>(component,'formatearFechaIso');
+
         component.crear();
-        expect(component.crear).toHaveBeenCalled();
+
+        expect(component['formatearFechaIso']).toHaveBeenCalled();
     });
 
     it('nombre componente',()=>{
@@ -105,10 +118,17 @@ describe('CrearAgendaComponent', () => {
 
     it('actualizar agenda', () => {
         component.tipoSeleccion = '1';
-        fixture.detectChanges();
-        spyOn(component, 'actualizar').and.callThrough;
+        component.parametroAgenda = 1;
+        component.ngOnInit();
+        spyOn<any>(component, 'actualizarFormulario');
+        component.agendaForm.value.fecha = '2020-05-21';
+        component.agendaForm.value.horas = 8;
+        spyOn(agendaService,'actualizarAgenda').and.returnValue(of(()=>{}));
+        spyOn<any>(component,'formatearFechaIso');
         component.actualizar();
-        expect(component.actualizar).toHaveBeenCalled();
+
+        //expect(component['actualizarFormulario']).toHaveBeenCalled();
+        expect(component['formatearFechaIso']).toHaveBeenCalled();
     });
 
     

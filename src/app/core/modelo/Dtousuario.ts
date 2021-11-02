@@ -10,4 +10,4 @@ export class DtoUsuario{
         this.clave = clave;
         this.fechaCreacion=fechaCreacion;
     }
-};
+}

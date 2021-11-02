@@ -23,7 +23,7 @@ export class CrearAgendaComponent implements OnInit{
     modoActualizar : boolean;
     agendaForm : FormGroup;
     listaMascotas : Array<Mascota>;
-    private parametroAgenda : number;
+    parametroAgenda : number;
     listaHoras : Array<any>;
     tipoSeleccion : string;
     fechaHoraCalculada : string;
@@ -50,9 +50,7 @@ export class CrearAgendaComponent implements OnInit{
                 this.modoActualizar = true;
                 this.actualizarFormulario();
             }
-        },error =>{
-            console.error(error);
-        })
+        });
     }
 
     nombreComponente():string{ 
@@ -72,10 +70,7 @@ export class CrearAgendaComponent implements OnInit{
         this.servicioAgenda.actualizarAgenda(agenda).subscribe(
             () =>{
                 this.route.navigate(['agenda','listar']);
-            },error=>{
-                console.log(error);
-                alert(error);            }
-        );
+            });
     }
 
     crear(){
@@ -89,7 +84,7 @@ export class CrearAgendaComponent implements OnInit{
         }else if(this.tipoSeleccion ===TIPO_SELECCION_AUTOMATICA){
             fecha.setFullYear(parseInt(this.fechaHoraCal.anio,10),
             MESES[this.fechaHoraCal.mes.toUpperCase()],parseInt(this.fechaHoraCal.dia,10));
-            let hora = this.fechaHoraCal.hora.split('')[0];
+            let hora = this.fechaHoraCal.hora.split(':')[0];
             fecha.setUTCHours(parseInt(hora,10));
         }
         
@@ -100,9 +95,7 @@ export class CrearAgendaComponent implements OnInit{
             idAgenda =>{
                 console.log('Se creo la agenda con id',idAgenda);
                 this.route.navigate(['agenda','listar'])
-            },error=>{
-                console.log(error);
-                alert(error);            }
+            }
         );
     }
 
@@ -136,7 +129,7 @@ export class CrearAgendaComponent implements OnInit{
             let fechaDisponible = lista[0];
             this.fechaHoraCal = lista[0];
             this.fechaHoraCalculada = this.formatearFecha(fechaDisponible);
-        },error=>{console.log(error);});
+        });
     }
 
     private formatearFecha(fechaDisponible :DtoFechasDisponibles) :string{
@@ -177,9 +170,7 @@ export class CrearAgendaComponent implements OnInit{
                     this.agendaForm.get('direccion').setValue(item.direccionMascota);
                 }
             })
-        },error=>{
-            alert(error);
-            console.log(error);});
+        });
     }
     
 }

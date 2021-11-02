@@ -14,7 +14,7 @@ const LONGITUD_MINIMA_CONTRASENIA = 4;
 })
 export class CrearUsuarioComponent implements OnInit{
     usuarioForm : FormGroup;
-    actualizarUsuario : boolean = false;
+    actualizarUsuario = false;
 
     usuarioActaulizar :Usuario;
 
@@ -30,8 +30,6 @@ export class CrearUsuarioComponent implements OnInit{
         .subscribe( usuario => {
             this.usuarioActaulizar = usuario;
             this.rellenarFormularioUsuario();
-        }, error=>{
-            console.log(error);
         });
         }
     }
@@ -58,7 +56,7 @@ export class CrearUsuarioComponent implements OnInit{
                     this.usuarioActaulizar.id);
                     this.router.navigate(['usuario','perfil']);
             }
-        )
+        );
     }
 
     private construirFormularioUsuario(){

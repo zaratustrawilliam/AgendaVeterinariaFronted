@@ -1,12 +1,12 @@
 export class Agenda{
-    id:Number;
-    idMascota:Number;
+    id:number;
+    idMascota:number;
     fechaAgenda:Date;
-    precio:Number;
+    precio:number;
     direccionMascota:string;
 
-    constructor(id:Number,idMascota:Number,fechaAgenda:Date,
-        precio:Number,direccionMascota:string){
+    constructor(id:number,idMascota:number,fechaAgenda:Date,
+        precio:number,direccionMascota:string){
         this.id =id;
         this.idMascota=idMascota;
         this.fechaAgenda=fechaAgenda;
@@ -14,3 +14,4 @@ export class Agenda{
         this.direccionMascota=direccionMascota;
     }
 }
+

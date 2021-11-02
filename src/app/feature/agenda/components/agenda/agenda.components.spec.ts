@@ -29,5 +29,10 @@ describe('AgendaComponent', () => {
     it('should create', () => {
       expect(component).toBeTruthy();
     });
+
+    it('activo oninit',()=>{
+      component.ngOnInit();
+      expect(component).toBeTruthy();
+    });
   
   });

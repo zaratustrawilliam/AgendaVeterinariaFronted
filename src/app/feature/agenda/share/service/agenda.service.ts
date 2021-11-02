@@ -1,10 +1,10 @@
-import { HttpParams } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { HttpService } from "@core/services/http.service";
-import { environment } from "src/environments/environment";
-import { Agenda } from "../model/Agenda";
-import { DtoAgenda } from "../model/DtoAgenda";
-import { DtoFechasDisponibles } from "../model/DtoFechasDisponibles";
+import { HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpService } from '@core/services/http.service';
+import { environment } from 'src/environments/environment';
+import { Agenda } from '../model/Agenda';
+import { DtoAgenda } from '../model/DtoAgenda';
+import { DtoFechasDisponibles } from '../model/DtoFechasDisponibles';
 
 
 @Injectable()
@@ -12,11 +12,11 @@ export class AgendaService {
 
     constructor(protected http:HttpService){}
 
-    public consultarAgendasPorUsuario(idUsuario : Number){
+    public consultarAgendasPorUsuario(idUsuario : number){
         return this.http.doGet<Array<Agenda>>(`${environment.endpoint}/agendas/${idUsuario}`);
     }
 
-    public consultarAgendaDisponiblePorRango(fechaConsulta:Date,registros:Number){
+    public consultarAgendaDisponiblePorRango(fechaConsulta:Date,registros:number){
 
         const params = new HttpParams()
         .set('fecha',fechaConsulta.toISOString())
@@ -26,14 +26,14 @@ export class AgendaService {
     }
 
     public crearAgenda(agenda:DtoAgenda){
-        return this.http.doPost<DtoAgenda,Number>(`${environment.endpoint}/agendas`,agenda);
+        return this.http.doPost<DtoAgenda,number>(`${environment.endpoint}/agendas`,agenda);
     }
 
     public actualizarAgenda(agenda:DtoAgenda){
         return this.http.doPut<DtoAgenda,VoidFunction>(`${environment.endpoint}/agendas`,agenda);
     }
 
-    public eliminarAgenda(idAgenda:Number){
+    public eliminarAgenda(idAgenda:number){
         return this.http.doDelete<VoidFunction>(`${environment.endpoint}/agendas/${idAgenda}`);
     }
 }

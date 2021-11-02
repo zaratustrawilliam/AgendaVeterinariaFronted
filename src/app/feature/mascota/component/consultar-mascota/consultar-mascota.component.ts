@@ -16,7 +16,7 @@ export class ConsultarMascotaComponent implements OnInit{
     listaTipoMascotas : Array<TipoMascota>;
 
     constructor(protected authServe :AuthService, public router :Router,
-        private mascotaService: MascotasService){};
+        private mascotaService: MascotasService){}
     
     ngOnInit(): void {
         

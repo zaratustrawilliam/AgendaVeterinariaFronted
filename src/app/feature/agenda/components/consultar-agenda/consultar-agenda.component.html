@@ -21,7 +21,7 @@
                     <th scope="col"></th>
                 </tr>
                 <tr *ngFor="let agenda of listaAgendas; let indice=index">
-                    <td scope = "row">{{indice + 1}}</td>
+                    <td>{{indice + 1}}</td>
                     <td>{{traerNombreMascota(agenda.idMascota)}}</td>
                     <td>{{agenda.fechaAgenda}}</td>
                     <td>{{agenda.precio}}</td>
@@ -32,7 +32,7 @@
                         </button>
                     </td>
                     <td>
-                        <button type="button" (click)="editarAgenda(agenda.id)">
+                        <button type="button" (click)="editarAgenda(agenda.id)" id="editarAgenda">
                             <span class="icon-editar"></span>
                         </button>
                     </td>
@@ -41,7 +41,7 @@
         </ul>
         <ul class="flex-outer">
             <li>
-                <button type="button" (click)="crearAgenda()">Crear Agenda</button>
+                <button type="button" (click)="crearAgenda()" id="crearAgenda">Crear Agenda</button>
             </li>
         </ul>
     </div>

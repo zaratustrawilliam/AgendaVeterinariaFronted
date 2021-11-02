@@ -19,7 +19,7 @@ export class MascotasService{
     }
 
     public eliminarMascota(idMascota : number){
-        return this.http.doDelete<VoidFunction>(`${environment.endpoint}/mascotas/${idMascota}`)
+        return this.http.doDelete<VoidFunction>(`${environment.endpoint}/mascotas/${idMascota}`);
     }
 
     public crearMascota( dtoMascota : DtoMascota){

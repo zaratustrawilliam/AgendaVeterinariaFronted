@@ -41,13 +41,14 @@ export class AuthService{
                 error=>{
                     reject(error);
             });
-        })
+        });
     }
 
     private validarExistenciaUsuario(user:string,clave:string,listaUsuarios : Array<DtoUsuario>) : boolean{
         let usuarios : Array<DtoUsuario> = listaUsuarios;
-        let existe : boolean = false;
-        usuarios.forEach(usuario =>{ if(usuario.nombre === user && usuario.clave === clave){
+        let existe = false;
+        usuarios.forEach(usuario =>{ 
+            if(usuario.nombre === user && usuario.clave === clave){
             existe = true;
             this.idUsuario = usuario.id;
         }});
