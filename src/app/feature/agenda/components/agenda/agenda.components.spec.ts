@@ -1,12 +1,18 @@
 import { CommonModule } from "@angular/common";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { Router } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
+import { ConsultarAgendaComponent } from "../consultar-agenda/consultar-agenda.component";
 import { AgendaComponent } from "./agenda.component";
 
 describe('AgendaComponent', () => {
     let component: AgendaComponent;
     let fixture: ComponentFixture<AgendaComponent>;
+    let route = {
+      navigate : jasmine.createSpy('navigate'),
+      url : 'agenda'
+    }
   
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
@@ -14,8 +20,14 @@ describe('AgendaComponent', () => {
         imports: [
           CommonModule,
           HttpClientTestingModule ,
-          RouterTestingModule
-        ]
+          RouterTestingModule.withRoutes([{
+            path : 'agenda/listar',
+            component : ConsultarAgendaComponent
+          }])
+        ],providers : [{
+          provide : Router,
+          useValue : route
+        }]
       })
       .compileComponents();
     }));
@@ -32,7 +44,8 @@ describe('AgendaComponent', () => {
 
     it('activo oninit',()=>{
       component.ngOnInit();
-      expect(component).toBeTruthy();
+
+      expect(component['router'].navigate).toHaveBeenCalledWith(['agenda','listar']);
     });
   
   });

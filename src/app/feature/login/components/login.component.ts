@@ -1,5 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertaService } from '@core/services/alerta.service';
 import { AuthService } from '@core/services/auth.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class LoginComponent implements OnInit{
     nombre:string;
     clave:string;
 
-    constructor(public router :Router,private authService:AuthService){}
+    constructor(public router :Router,private authService:AuthService,
+        private alerta : AlertaService){}
 
     ngOnInit(): void {
     }
@@ -21,7 +23,7 @@ export class LoginComponent implements OnInit{
         this.authService.login(this.nombre,this.clave).then(() =>{
             this.router.navigate(['home']);
         },()=>{
-            alert('Usuario no existe o clave incorrecta');
+            this.alerta.error('Usuario no existe o clave incorrecta');
         });
     }
     

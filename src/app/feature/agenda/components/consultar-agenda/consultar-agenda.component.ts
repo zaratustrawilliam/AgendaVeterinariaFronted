@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HTTP_ERRORES_CODIGO } from '@core/interceptor/http-codigo-error';
+import { AlertaService } from '@core/services/alerta.service';
 import { AuthService } from '@core/services/auth.service';
 import { Mascota } from 'src/app/feature/mascota/shared/model/Mascota';
 import { MascotasService } from 'src/app/feature/mascota/shared/service/mascotas.service';
 import { Agenda } from '../../share/model/Agenda';
 import { AgendaService } from '../../share/service/agenda.service';
+
+const HTTP_BAD_REQUEST = 400;
 
 @Component({
     selector:'app-consultaragenda',
@@ -17,7 +21,7 @@ export class ConsultarAgendaComponent implements OnInit{
     listaMascotas : Array<Mascota>;
     
     constructor(private servicioMascota:MascotasService, private servicioAgenda:AgendaService,
-        protected authServer:AuthService,private router:Router){}
+        protected authServer:AuthService,private router:Router,private alerta : AlertaService){}
 
     ngOnInit(): void {
         this.listaAgendas = [];
@@ -33,6 +37,10 @@ export class ConsultarAgendaComponent implements OnInit{
         this.servicioAgenda.eliminarAgenda(this.listaAgendas[indice].id)
         .subscribe(()=>{
             this.listaAgendas.splice(indice,1);
+            this.alerta.exito('se elimino exitosamente');
+        },error=>{
+            this.alerta.error(error.status === HTTP_BAD_REQUEST ? error.error.mensaje : 
+                HTTP_ERRORES_CODIGO.PETICION_FALLIDA);
         });
     }
 

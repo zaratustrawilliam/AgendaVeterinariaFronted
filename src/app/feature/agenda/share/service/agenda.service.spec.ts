@@ -81,4 +81,11 @@ describe('AgendaService', () => {
         expect(req.request.method).toBe('PUT');
       });
 
+      it('deberia listar items horarios para el select',()=>{
+        let items = service.listarItemsDeHoras();
+        expect(items).toHaveSize(11);
+        expect(items[0].id).toEqual(7);
+        expect(items[0].nombre).toEqual('07:00 AM');
+      });
+
 });

@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, waitForAsync, TestBed, async } from "@angular/core/testing";
+import { ActivatedRoute, Router } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { AuthService } from "@core/services/auth.service";
 import { HttpService } from "@core/services/http.service";
@@ -22,6 +23,12 @@ describe('CrearAgendaComponent', () => {
     let agendaService: AgendaService;
     let agendaMascota: MascotasService;
     let auth; AuthService;
+    let router = {
+        navigate : jasmine.createSpy('navigate')
+    }
+    let activatedRoute = {
+        params : of()
+    }
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -33,7 +40,13 @@ describe('CrearAgendaComponent', () => {
                     path:'agenda/listar',component:ConsultarAgendaComponent
                 }])
             ],
-            providers: [AuthService, AgendaService,MascotasService, HttpService]
+            providers: [AuthService, AgendaService,MascotasService, HttpService,{
+                provide : ActivatedRoute,
+                useValue : activatedRoute
+            },{
+                provide : Router,
+                useValue : router
+            }]
         })
             .compileComponents();
     }));
@@ -49,7 +62,7 @@ describe('CrearAgendaComponent', () => {
         const dymmyTipoMascota = [new TipoMascota(1,'PERRO'),new TipoMascota(2,'GATO'),
         new TipoMascota(3,'AVE'),new TipoMascota(4,'ROEDOR')];
         const dummyMascota = [new Mascota(1, 'Tobias', dummyUsuario, dymmyTipoMascota[0])];
-        const dummyAgenda = [new Agenda(null,1,new Date(),null,null)];
+        const dummyAgenda = [new Agenda(1,1,new Date(),null,null)];
         const dummyDisponible = [new DtoFechasDisponibles('1','mayo','2022','07:00')];
 
         spyOn(agendaMascota, 'consultarMascotasPorUsuario').and.returnValue(of(dummyMascota));
@@ -81,11 +94,10 @@ describe('CrearAgendaComponent', () => {
         component.agendaForm.value.fecha = '2020-05-21';
         component.agendaForm.value.horas = 8;
         spyOn(agendaService,'crearAgenda').and.returnValue(of(1));
-        spyOn<any>(component,'formatearFechaIso');
 
         component.crear();
 
-        expect(component['formatearFechaIso']).toHaveBeenCalled();
+        expect(component['route'].navigate).toHaveBeenCalledWith(['agenda','listar']);
     });
 
     it('handle change, fecha automatica',()=>{
@@ -99,11 +111,10 @@ describe('CrearAgendaComponent', () => {
         let fechaDtoDummy = new DtoFechasDisponibles('15','mayo','2021','9:00');
         component.fechaHoraCal = fechaDtoDummy;
         spyOn(agendaService,'crearAgenda').and.returnValue(of(1));
-        spyOn<any>(component,'formatearFechaIso');
 
         component.crear();
 
-        expect(component['formatearFechaIso']).toHaveBeenCalled();
+        expect(component['route'].navigate).toHaveBeenCalledWith(['agenda','listar']);
     });
 
     it('nombre componente',()=>{
@@ -118,17 +129,15 @@ describe('CrearAgendaComponent', () => {
 
     it('actualizar agenda', () => {
         component.tipoSeleccion = '1';
-        component.parametroAgenda = 1;
+        activatedRoute.params = of({'idAgenda':1});
         component.ngOnInit();
-        spyOn<any>(component, 'actualizarFormulario');
         component.agendaForm.value.fecha = '2020-05-21';
         component.agendaForm.value.horas = 8;
         spyOn(agendaService,'actualizarAgenda').and.returnValue(of(()=>{}));
-        spyOn<any>(component,'formatearFechaIso');
+
         component.actualizar();
 
-        //expect(component['actualizarFormulario']).toHaveBeenCalled();
-        expect(component['formatearFechaIso']).toHaveBeenCalled();
+        expect(component['route'].navigate).toHaveBeenCalledWith(['agenda','listar']);
     });
 
     

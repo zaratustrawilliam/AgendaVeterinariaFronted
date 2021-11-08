@@ -1,0 +1,6 @@
+<div *ngIf="alerta.activa" class="row justify-content-center">
+    <div class="{{ cssClass(alerta) }} alert-dismissable">
+        {{alerta.mensaje}}
+        <a class="close" (click)="eliminar()">&times;</a>
+    </div>
+</div>

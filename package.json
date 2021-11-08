@@ -7,7 +7,9 @@
     "build": "ng build --prod",
     "test": "ng test --browsers=ChromeHeadless --watch=false --code-coverage",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "license": "license-checker --json > ../licenses.json",
+    "license-unknow": "license-checker --unknow --json > ../licenses_unknow.json"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~11.2.8",
     "@angular/router": "~11.2.8",
     "intl": "^1.2.5",
+    "license-checker": "^25.0.1",
     "ngx-cookie-service": "^11.0.2",
     "rxjs": "~6.6.7",
     "tslib": "^2.2.0",

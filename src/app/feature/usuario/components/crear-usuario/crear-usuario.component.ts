@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '@core/services/auth.service';
 import { Router } from '@angular/router';
 import { Usuario } from '../../shared/model/usuario';
+import { AlertaService } from '@core/services/alerta.service';
 
 const LONGITUD_MINIMA_CONTRASENIA = 4;
 
@@ -19,7 +20,8 @@ export class CrearUsuarioComponent implements OnInit{
     usuarioActaulizar :Usuario;
 
     constructor(protected usuarioServicio : UsuarioService,
-        protected authService :AuthService,private router :Router){
+        protected authService :AuthService,private router :Router,
+        private alerta :AlertaService){
         }
 
     ngOnInit(): void {
@@ -41,7 +43,7 @@ export class CrearUsuarioComponent implements OnInit{
                     res.valor);
                     this.router.navigate(['home']);
             },()=>{
-                alert('No se puede crear al empleado');
+                this.alerta.error('No se puede crear al empleado');
             }
         );
     }

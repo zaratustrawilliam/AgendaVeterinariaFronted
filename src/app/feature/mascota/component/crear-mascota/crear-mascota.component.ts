@@ -13,7 +13,7 @@ import { MascotasService } from '../../shared/service/mascotas.service';
 })
 export class CrearMascotaComponent implements OnInit{
     
-    mascota : DtoMascota;
+    mascota : DtoMascota ;
     mascotaForm : FormGroup;
     modoActualizar : boolean;
     listaTipoMascotas : Array<TipoMascota>;
@@ -29,7 +29,6 @@ export class CrearMascotaComponent implements OnInit{
         this.listaTipoMascotas = [];
 
         this.rutaActiva.params.subscribe((params: Params) => this.parametroMascota = params['idMascota']);
-
         this.servicioMascotas.consultarTiposMascotas()
             .subscribe(tipos=>{
                 this.listaTipoMascotas = tipos;
@@ -56,8 +55,7 @@ export class CrearMascotaComponent implements OnInit{
     crear(){
         this.construirDtoMascota();
         this.servicioMascotas.crearMascota(this.mascota)
-        .subscribe(idMascota=>{
-            console.log('se creo mascota con id',idMascota);
+        .subscribe(()=>{
             this.route.navigate(['mascota','listar']);
         });
     }

@@ -5,7 +5,14 @@ import { environment } from 'src/environments/environment';
 import { Agenda } from '../model/Agenda';
 import { DtoAgenda } from '../model/DtoAgenda';
 import { DtoFechasDisponibles } from '../model/DtoFechasDisponibles';
+import { HoraItem } from '../model/HoraItem';
 
+const HORA_INICIO_JORNADA_LABORAL = 7;
+const HORA_FINALIZACION_JORNADA_LABORAL = 17;
+const CERO = "0";
+const FORMATO_HORA = ":00 ";
+const AM = "AM";
+const FM = "FM";
 
 @Injectable()
 export class AgendaService {
@@ -35,5 +42,17 @@ export class AgendaService {
 
     public eliminarAgenda(idAgenda:number){
         return this.http.doDelete<VoidFunction>(`${environment.endpoint}/agendas/${idAgenda}`);
+    }
+
+    public listarItemsDeHoras():Array<HoraItem>{
+        let listaHoras = new Array<HoraItem>();
+        let horaBalanceada = 0;
+        for (let index = HORA_INICIO_JORNADA_LABORAL; index <= HORA_FINALIZACION_JORNADA_LABORAL; index++) {
+            horaBalanceada = index > 12 ? index - 12 : index;
+            let hora = horaBalanceada >= 10 ? horaBalanceada.toString() : CERO.concat(horaBalanceada.toString());
+            let jornada = index > 12 ? FM : AM;
+            listaHoras.push(new HoraItem(index,hora.concat(FORMATO_HORA).concat(jornada)));           
+        }
+        return listaHoras;
     }
 }

@@ -20,11 +20,11 @@ import { AgendaModule } from './feature/agenda/agenda.module';
     HomeComponent
   ],
   imports: [
+    CoreModule,
     BrowserModule,
-    AppRoutingModule,
+    AppRoutingModule,   
     ProductoModule,
     UsuarioModule,
-    CoreModule,
     FormsModule,
     LoginModule,
     MascotaModule,

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BaseUsuarioComponent } from './base-usuario.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { UsuarioComponent } from '../usuario/usuario.component';
+import { Router } from '@angular/router';
 
 
 
@@ -10,6 +12,10 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 describe('BaseUsuarioComponent', () => {
   let component: BaseUsuarioComponent;
   let fixture: ComponentFixture<BaseUsuarioComponent>;
+  let router = {
+    navigate: jasmine.createSpy('navigate'),
+    url : 'usuario'
+  }
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -17,7 +23,12 @@ describe('BaseUsuarioComponent', () => {
       imports: [
         CommonModule,
         HttpClientTestingModule ,
-        RouterTestingModule
+        RouterTestingModule.withRoutes([{path:'usuario/perfil',component:UsuarioComponent}])
+      ],providers:[
+        {
+          provide : Router,
+          useValue : router
+        }
       ]
     })
     .compileComponents();
@@ -26,7 +37,6 @@ describe('BaseUsuarioComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BaseUsuarioComponent);
     component = fixture.componentInstance;
-    spyOn(component.router, 'navigate').and.returnValue(Promise.resolve(true));
     fixture.detectChanges();
   });
 
@@ -36,7 +46,8 @@ describe('BaseUsuarioComponent', () => {
 
   it('activo oninit',()=>{
     component.ngOnInit();
-    expect(component).toBeTruthy();
+
+    expect(component.router.navigate).toHaveBeenCalled();
   });
 
 });

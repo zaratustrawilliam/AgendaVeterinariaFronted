@@ -1,15 +1,17 @@
 import { CommonModule } from "@angular/common";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, waitForAsync, TestBed, async } from "@angular/core/testing";
+import { ActivatedRoute, Router } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { AuthService } from "@core/services/auth.service";
 import { HttpService } from "@core/services/http.service";
 import { of } from "rxjs";
 import { Usuario } from "src/app/feature/usuario/shared/model/usuario";
-import { DtoMascota } from "../../shared/model/DtoMascota";
+//import { DtoMascota } from "../../shared/model/DtoMascota";
 import { Mascota } from "../../shared/model/Mascota";
 import { TipoMascota } from "../../shared/model/TipoMascota";
 import { MascotasService } from "../../shared/service/mascotas.service";
+import { MascotasComponent } from "../mascota/mascota.component";
 import { CrearMascotaComponent } from "./crear-mascota.component";
 
 describe('CrearMascotaComponent', () => {
@@ -18,6 +20,12 @@ describe('CrearMascotaComponent', () => {
 
     let mascotaService: MascotasService;
     let auth: AuthService;
+    let router = {
+        navigate : jasmine.createSpy('navigate')
+    }
+    let activatedRoute = {
+        params : of()
+    }
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -25,9 +33,15 @@ describe('CrearMascotaComponent', () => {
             imports: [
                 CommonModule,
                 HttpClientTestingModule ,
-                RouterTestingModule
+                RouterTestingModule.withRoutes([{path:'mascota/listar',component:MascotasComponent}])
             ],
-            providers: [AuthService, MascotasService, HttpService]
+            providers: [AuthService, MascotasService, HttpService,{
+                provide : Router,
+                useValue : router
+            },{
+                provide : ActivatedRoute,
+                useValue : activatedRoute
+            }]
         })
             .compileComponents();
     }));
@@ -41,7 +55,7 @@ describe('CrearMascotaComponent', () => {
         const dummyUsuario = new Usuario(1, 'Juan', '12345', new Date());
         const dymmyTipoMascota = [new TipoMascota(1,'PERRO'),new TipoMascota(2,'GATO'),
         new TipoMascota(3,'AVE'),new TipoMascota(4,'ROEDOR')];
-        const dummyMascota = [new Mascota(null, 'Tobias', dummyUsuario, dymmyTipoMascota[0])];
+        const dummyMascota = [new Mascota(1, 'Tobias', dummyUsuario, dymmyTipoMascota[0])];
         spyOn(mascotaService, 'consultarMascotasPorUsuario').and.returnValue(of(dummyMascota));
         spyOn(mascotaService, 'consultarTiposMascotas').and.returnValue(of(dymmyTipoMascota));
         fixture.detectChanges();
@@ -66,11 +80,14 @@ describe('CrearMascotaComponent', () => {
     it('crear mascota', () => {
         component.mascotaForm.controls['nombre'].setValue('Tobias');
         component.mascotaForm.controls['tipoMascota'].setValue('1');
-        spyOn(mascotaService, 'crearMascota').and.returnValue(of());
+        spyOn(mascotaService, 'crearMascota').and.returnValue(of(1));
         spyOn<any>(component,'construirDtoMascota');
+
         component.crear();
+
         expect(component['construirDtoMascota']).toHaveBeenCalled();
         expect(mascotaService.crearMascota).toHaveBeenCalled();
+        expect(component['route'].navigate).toHaveBeenCalledWith(['mascota','listar']);
     });
 
     it('nombre componente',()=>{
@@ -84,17 +101,14 @@ describe('CrearMascotaComponent', () => {
     });
 
     it('actualizar mascota', () => {
-        component.parametroMascota = 1;
+        activatedRoute.params = of({'idMascota':1});
         component.ngOnInit();
-        spyOn<any>(component,'construirDtoMascota');
-        spyOn(mascotaService, 'actualizarMascota').and.returnValue(of());
-        const dummyMascota = new DtoMascota(null, 'Tobias',1,1);
-        component.mascota = dummyMascota;
+        spyOn(mascotaService, 'actualizarMascota').and.returnValue(of(()=>{}));
 
         component.actualizar();
 
-        expect(component['construirDtoMascota']).toHaveBeenCalled();
         expect(mascotaService.actualizarMascota).toHaveBeenCalled();
+        expect(component['route'].navigate).toHaveBeenCalledWith(['mascota','listar']);
     });
 
     

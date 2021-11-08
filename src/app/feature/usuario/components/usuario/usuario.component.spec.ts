@@ -10,6 +10,8 @@ import { Usuario } from '../../shared/model/usuario';
 import { of } from 'rxjs';
 import { LoginComponent } from 'src/app/feature/login/components/login.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Router } from '@angular/router';
+import { CrearUsuarioComponent } from '../crear-usuario/crear-usuario.component';
 
 describe('UsuarioComponent', () => {
   let component: UsuarioComponent;
@@ -17,6 +19,11 @@ describe('UsuarioComponent', () => {
 
   let userService : UsuarioService;
   let auth ; AuthService;
+  let router = {
+    navigate: jasmine.createSpy('navigate'),
+    url : 'usuario'
+  }
+
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -24,9 +31,16 @@ describe('UsuarioComponent', () => {
       imports: [
         CommonModule,
         HttpClientTestingModule,
-        RouterTestingModule.withRoutes([{path:'login',component:LoginComponent}])
+        RouterTestingModule.withRoutes([{path:'login',component:LoginComponent},{
+          path:'usuario/crear',
+          component:CrearUsuarioComponent
+        }])
       ],
-      providers:[AuthService,UsuarioService,HttpService]
+      providers:[AuthService,UsuarioService,HttpService,
+        {
+          provide : Router,
+          useValue : router
+        }]
     })
     .compileComponents();
   }));
@@ -46,17 +60,26 @@ describe('UsuarioComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('eliminar',()=>{
-      const espiarLlamado = spyOn(userService,'eliminarUsuario').and.callThrough();
-      fixture.detectChanges();
+  it('eliminar',async()=>{
+      spyOn(userService,'eliminarUsuario').and.returnValue(of(()=>{}));
+      spyOn(auth,'logoutUser');
+ 
       component.eliminarUsuario();
-      expect(espiarLlamado).toHaveBeenCalled();
+
+      expect(auth.logoutUser).toHaveBeenCalled();
+      expect(component['router'].navigate).toHaveBeenCalled();
   });
 
   it('cerrar cesion',()=>{
       spyOn(auth,'logoutUser');
       component.cerrarCesion();
       expect(auth.logoutUser).toHaveBeenCalled();
-  })
+  });
+
+  it('actualizar Usuario',()=>{
+    component.actualizarUsuario();
+
+    expect(component['router'].navigate).toHaveBeenCalledWith(['usuario','crear']);
+  });
 
 });

@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, waitForAsync, TestBed } from "@angular/core/testing";
+import { Router } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { AuthService } from "@core/services/auth.service";
 import { HttpService } from "@core/services/http.service";
@@ -9,6 +10,7 @@ import { Usuario } from "src/app/feature/usuario/shared/model/usuario";
 import { Mascota } from "../../shared/model/Mascota";
 import { TipoMascota } from "../../shared/model/TipoMascota";
 import { MascotasService } from "../../shared/service/mascotas.service";
+import { CrearMascotaComponent } from "../crear-mascota/crear-mascota.component";
 import { ConsultarMascotaComponent } from "./consultar-mascota.component";
 
 describe('ConsultarMascotaComponent', () => {
@@ -17,6 +19,9 @@ describe('ConsultarMascotaComponent', () => {
 
     let mascotaService: MascotasService;
     let auth; AuthService;
+    let router = {
+        navigate : jasmine.createSpy('navigate')
+    }
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -24,9 +29,14 @@ describe('ConsultarMascotaComponent', () => {
             imports: [
                 CommonModule,
                 HttpClientTestingModule ,
-                RouterTestingModule
+                RouterTestingModule.withRoutes([{path:'mascota/actualizar/:idMascota',component:CrearMascotaComponent},{
+                    path:'mascota/crear',component:CrearMascotaComponent
+                }])
             ],
-            providers: [AuthService, MascotasService, HttpService]
+            providers: [AuthService, MascotasService, HttpService,{
+                provide : Router,
+                useValue : router
+            }]
         })
             .compileComponents();
     }));
@@ -60,21 +70,25 @@ describe('ConsultarMascotaComponent', () => {
         new TipoMascota(3,'AVE'),new TipoMascota(4,'ROEDOR')];
         const dummyMascota = [new Mascota(null, 'Tobias', dummyUsuario, dymmyTipoMascota[0])];
         component.listaMascotas = dummyMascota;
-        spyOn(mascotaService, 'eliminarMascota').and.returnValue(of());
+        spyOn(mascotaService, 'eliminarMascota').and.returnValue(of(()=>{}));
+        let tamañoVectorMascotas = component.listaMascotas.length;
+
         component.eliminarMascota(0);
+
         expect(mascotaService.eliminarMascota).toHaveBeenCalled();
+        expect(component.listaMascotas).toBeLessThan(tamañoVectorMascotas);
     });
 
-    it('editar mascota', () => {
-        spyOn(component, 'editarMascota');
+    it('editar mascota', () => {        
         component.editarMascota(component.listaMascotas[0]);
-        expect(component.editarMascota).toHaveBeenCalled();
+
+        expect(component.router.navigate).toHaveBeenCalledWith(['mascota','actualizar',component.listaMascotas[0].id]);
     });
 
     it('crear mascota', () => {
-        spyOn(component, 'crearMascota');
         component.crearMascota();
-        expect(component.crearMascota).toHaveBeenCalled();
+
+        expect(component.router.navigate).toHaveBeenCalledWith(['mascota','crear']);
     })
 
 });

@@ -6,6 +6,7 @@ import { Mascota } from 'src/app/feature/mascota/shared/model/Mascota';
 import { MascotasService } from 'src/app/feature/mascota/shared/service/mascotas.service';
 import { DtoAgenda } from '../../share/model/DtoAgenda';
 import { DtoFechasDisponibles } from '../../share/model/DtoFechasDisponibles';
+import { HoraItem } from '../../share/model/HoraItem';
 import { AgendaService } from '../../share/service/agenda.service';
 
 const TIPO_SELECCION_INGRESAR_FECHA = '1';
@@ -24,7 +25,7 @@ export class CrearAgendaComponent implements OnInit{
     agendaForm : FormGroup;
     listaMascotas : Array<Mascota>;
     parametroAgenda : number;
-    listaHoras : Array<any>;
+    listaHoras : Array<HoraItem>;
     tipoSeleccion : string;
     fechaHoraCalculada : string;
     fechaHoraCal : DtoFechasDisponibles;
@@ -37,7 +38,7 @@ export class CrearAgendaComponent implements OnInit{
         this.modoActualizar = false;
         this.listaMascotas = [];
         this.construirFormularioAgenda();
-        this.llenarListaHoras();
+        this.listaHoras = this.servicioAgenda.listarItemsDeHoras();
         this.fechaHoraCalculada = '';
         this.tipoSeleccion = TIPO_SELECCION_INGRESAR_FECHA;
 
@@ -78,7 +79,7 @@ export class CrearAgendaComponent implements OnInit{
         const indexObjeto = 2;
         if(this.tipoSeleccion === TIPO_SELECCION_INGRESAR_FECHA){
             let valoresFecha = this.agendaForm.value.fecha.split('-');
-            fecha.setFullYear(parseInt(valoresFecha[0],10),parseInt(valoresFecha[1],10),
+            fecha.setFullYear(parseInt(valoresFecha[0],10),parseInt(valoresFecha[1],10) - 1,
             parseInt(valoresFecha[indexObjeto],10));
             fecha.setUTCHours(this.agendaForm.value.horas,0,0,0);
         }else if(this.tipoSeleccion ===TIPO_SELECCION_AUTOMATICA){
@@ -87,13 +88,12 @@ export class CrearAgendaComponent implements OnInit{
             let hora = this.fechaHoraCal.hora.split(':')[0];
             fecha.setUTCHours(parseInt(hora,10));
         }
-        
+ 
         let agenda = new DtoAgenda(null,this.agendaForm.get('mascotas').value,
         this.formatearFechaIso(fecha.toISOString()),null,this.agendaForm.get('direccion').value);
 
         this.servicioAgenda.crearAgenda(agenda).subscribe(
-            idAgenda =>{
-                console.log('Se creo la agenda con id',idAgenda);
+            () =>{
                 this.route.navigate(['agenda','listar'])
             }
         );
@@ -106,21 +106,6 @@ export class CrearAgendaComponent implements OnInit{
             direccion: new FormControl('',[]),
             horas:new FormControl('',[])
         });
-    }
-
-    private llenarListaHoras(){
-        this.listaHoras = [];
-        this.listaHoras.push({id : 7,nombre : '07:00 AM'});
-        this.listaHoras.push({id : 8,nombre : '08:00 AM'});  
-        this.listaHoras.push({id : 9,nombre : '09:00 AM'});  
-        this.listaHoras.push({id : 10,nombre : '10:00 AM'});  
-        this.listaHoras.push({id : 11,nombre : '11:00 AM'});  
-        this.listaHoras.push({id : 12,nombre : '12:00 AM'});  
-        this.listaHoras.push({id : 13,nombre : '01:00 PM'});  
-        this.listaHoras.push({id : 14,nombre : '02:00 PM'});  
-        this.listaHoras.push({id : 15,nombre : '03:00 PM'});
-        this.listaHoras.push({id : 16,nombre : '04:00 PM'});
-        this.listaHoras.push({id : 17,nombre : '05:00 PM'});          
     }
 
     private calcularFechaAutomatica(){
@@ -151,11 +136,13 @@ export class CrearAgendaComponent implements OnInit{
     }
 
     private convertirFechaPicker(fecha : string):string{
-        const hora = 2;
+        const anio = 2;
         const mes = 1;
         const dia = 0;
         let fechaPartida = fecha.split('/');
-        return `${fechaPartida[hora]}-${fechaPartida[mes]}-${fechaPartida[dia]}`;
+        let valorMes_MM = fechaPartida[mes].length === 1 ? '0'.concat(fechaPartida[mes]) :  fechaPartida[mes];
+        let valorDia_DD = fechaPartida[dia].length === 1 ? '0'.concat(fechaPartida[dia]) :  fechaPartida[dia];
+        return `${fechaPartida[anio]}-${valorMes_MM}-${valorDia_DD}`;
     }
 
     private actualizarFormulario(){
